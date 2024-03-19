@@ -1,0 +1,222 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.frmMain..Create(BaseForm)
+Gui.frmMain..Caption("Purchase Requistision Dashboard Setup")
+Gui.frmMain..Size(583,368)
+Gui.frmMain..MinX(0)
+Gui.frmMain..MinY(0)
+Gui.frmMain..Position(0,0)
+Gui.frmMain..AlwaysOnTop(False)
+Gui.frmMain..FontName("Tahoma")
+Gui.frmMain..FontSize(8.25)
+Gui.frmMain..ControlBox(True)
+Gui.frmMain..MaxButton(True)
+Gui.frmMain..MinButton(True)
+Gui.frmMain..MousePointer(0)
+Gui.frmMain..Moveable(True)
+Gui.frmMain..Sizeable(True)
+Gui.frmMain..ShowInTaskBar(True)
+Gui.frmMain..TitleBar(True)
+Gui.frmMain..Event(UnLoad,frmMain_UnLoad)
+Gui.frmMain.gsgcAdmin.Create(GsGridControl)
+Gui.frmMain.gsgcAdmin.Enabled(True)
+Gui.frmMain.gsgcAdmin.Visible(True)
+Gui.frmMain.gsgcAdmin.Zorder(0)
+Gui.frmMain.gsgcAdmin.Size(583,338)
+Gui.frmMain.gsgcAdmin.Position(0,0)
+Gui.frmMain.gsgcAdmin.Dock(5)
+Gui.frmMain.gsgcAdmin.Event(CellValueChanged,gsgcAdmin_CellValueChanged)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.bExist.Declare
+	
+	f.ODBC.Connection!con.OpenCompanyConnection(600)
+	f.ODBC.Connection!CommonCon.OpenConnection(V.Ambient.Ccon,V.Ambient.Cuser,V.Ambient.Cpass)
+	
+	gui.frmMain..Show
+	gui.frmMain.gsgcAdmin.InvokeWait("Loading data... Please wait...","Purchase Requisition Dashboard Administrator (6639)")
+	
+	f.ODBC.Connection!con.TableExists("GAB_6639_ADMIN",v.Local.bExist)
+	f.Intrinsic.Control.If(v.Local.bExist,=,False)
+		f.ODBC.Connection!con.Execute("CREATE TABLE GAB_6639_ADMIN(GS_USER VARCHAR(8), ADMIN BIT, PRIMARY KEY(GS_USER));")
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.CallSub(SetContextMenus)
+	f.Intrinsic.Control.CallSub(LoadGridview)
+	
+	'Prevent the form from using DarkTheme
+	F.Intrinsic.Task.SetEnvironmentVariable("USEDARKTHEME",False)
+	gui.frmMain..ApplyTheme()
+	
+	gui.frmMain.gsgcAdmin.HideWait
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	f.Intrinsic.UI.Msgbox(v.Local.sError)
+	f.Intrinsic.Control.CallSub(Unload)
+f.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.frmMain_UnLoad.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	
+	f.Intrinsic.Control.If(v.DataTable.dtGS_USER.Exists)
+		f.Data.DataTable.Close("dtGS_USER")
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.If(V.ODBC.con.State,=,1)
+		f.ODBC.Connection!con.close
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.If(V.ODBC.CommonCon.State,=,1)
+		f.ODBC.Connection!CommonCon.close
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.End
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	f.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.End
+f.Intrinsic.Control.EndTry	
+Program.Sub.frmMain_UnLoad.End
+
+Program.Sub.LoadGridView.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sQuery.Declare
+	
+	gui.frmMain.gsgcAdmin.SuspendLayout
+	
+	'Load All Users in GSS
+	f.Intrinsic.String.Build("select RTRIM(GS_USER) AS GS_USER, FIRST_NAME, LAST_NAME from user_information where enabled = 1 and (company = '{0}' or  company = '') order by gs_user;",v.Caller.CompanyCode,v.Local.sQuery)
+	f.Intrinsic.Control.If(v.DataTable.dtGS_USER.Exists)
+		f.Data.DataTable.Close("dtGS_USER")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataTable.CreateFromSQL("dtGS_USER","CommonCon",v.Local.sQuery,True)
+	'Add Column to dtCustomers
+	f.Data.DataTable.AddColumn("dtGS_USER","ADMIN","Boolean",False)
+	
+	'Get the admin user from custom table
+	f.Data.Dictionary.CreateFromSQL("dicADMIN","con","select rtrim(GS_USER) as GS_USER, ADMIN from GAB_6639_ADMIN ORDER BY GS_USER;")
+	f.Data.Dictionary.SetDefaultReturn("dicADMIN",False)
+	f.Data.DataTable.FillFromDictionary("dtGS_USER","dicADMIN","GS_USER","ADMIN")
+	f.Data.Dictionary.Close("dicADMIN")
+	
+	'Format the gridview
+	gui.frmMain.gsgcAdmin.AddGridviewFromDatatable("gvGS_USER","dtGS_USER")
+	gui.frmMain.gsgcAdmin.MainView("gvGS_USER")
+	
+	'GS_USER
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","GS_USER","Caption","Username")
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","GS_USER","HeaderFontBold",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","GS_USER","AllowEdit",False)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","GS_USER","ReadOnly",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","GS_USER","MinWidth",60)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","GS_USER","HeaderHAlignment","Center")
+	
+	'FIRST_NAME
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","FIRST_NAME","Caption","First Name")
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","FIRST_NAME","HeaderFontBold",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","FIRST_NAME","AllowEdit",False)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","FIRST_NAME","ReadOnly",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","FIRST_NAME","MinWidth",150)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","FIRST_NAME","HeaderHAlignment","Center")
+	
+	'LAST_NAME
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","LAST_NAME","Caption","Last Name")
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","LAST_NAME","HeaderFontBold",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","LAST_NAME","AllowEdit",False)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","LAST_NAME","ReadOnly",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","LAST_NAME","MinWidth",150)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","LAST_NAME","HeaderHAlignment","Center")
+	
+	'ADMIN
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","ADMIN","Caption","Admin")
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","ADMIN","HeaderFontBold",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","ADMIN","AllowEdit",True)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","ADMIN","ReadOnly",False)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","ADMIN","MinWidth",40)
+	gui.frmMain.gsgcAdmin.SetColumnProperty("gvGS_USER","ADMIN","HeaderHAlignment","Center")
+	
+	gui.frmMain.gsgcAdmin.ResumeLayout
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	f.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.End
+f.Intrinsic.Control.EndTry	
+Program.Sub.LoadGridView.End
+
+Program.Sub.gsgcAdmin_CellValueChanged.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.bValue.Declare
+	v.Local.sQuery.Declare
+	
+	v.Local.bValue.Set(v.Args.Value)
+	f.Intrinsic.String.Build("select * from GAB_6639_ADMIN where GS_USER = '{0}'",v.DataTable.dtGS_USER(v.Args.RowIndex).GS_USER!FieldValTrim,v.Local.sQuery)
+	f.ODBC.Connection!con.OpenLocalRecordsetRO("rst",v.Local.sQuery)
+	f.Intrinsic.Control.If(v.ODBC.con!rst.EOF)
+		f.Intrinsic.Control.If(v.Local.bValue)
+			f.Intrinsic.String.Build("insert into GAB_6639_ADMIN(GS_USER,ADMIN) values('{0}',1)",v.DataTable.dtGS_USER(v.Args.RowIndex).GS_USER!FieldValTrim,v.Local.sQuery)
+			f.ODBC.Connection!con.Execute(v.Local.sQuery)
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Else
+		f.Intrinsic.Control.If(v.Local.bValue)
+			f.Intrinsic.String.Build("update GAB_6639_ADMIN set ADMIN = 1 where GS_USER = '{0}'",v.DataTable.dtGS_USER(v.Args.RowIndex).GS_USER!FieldValTrim,v.Local.sQuery)
+			f.ODBC.Connection!con.Execute(v.Local.sQuery)
+		f.Intrinsic.Control.Else
+			f.Intrinsic.String.Build("delete from GAB_6639_ADMIN where GS_USER = '{0}'",v.DataTable.dtGS_USER(v.Args.RowIndex).GS_USER!FieldValTrim,v.Local.sQuery)
+			f.ODBC.Connection!con.Execute(v.Local.sQuery)
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.EndIf
+	f.ODBC.con!rst.Close
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	f.Intrinsic.UI.Msgbox(v.Local.sError)
+	f.Intrinsic.Control.CallSub(Unload)
+f.Intrinsic.Control.EndTry
+Program.Sub.gsgcAdmin_CellValueChanged.End
+
+Program.Sub.SetContextMenus.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	
+	gui.frmMain..ContextMenuCreate("ctxADMIN")
+	gui.frmMain..ContextMenuAddItem("ctxADMIN","Refresh",v.Enum.MenuItemType!Button,"Refresh")
+	gui.frmMain..ContextMenuSetItemEventHandler("ctxADMIN","Refresh","RefreshGridView")
+	gui.frmMain.gsgcAdmin.ContextMenuAttach("ctxADMIN")
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	f.Intrinsic.UI.Msgbox(v.Local.sError)
+	f.Intrinsic.Control.CallSub(Unload)
+f.Intrinsic.Control.EndTry	
+Program.Sub.SetContextMenus.End
+
+Program.Sub.RefreshGridView.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	
+	f.Intrinsic.Control.CallSub(LoadGridview)
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	f.Intrinsic.UI.Msgbox(v.Local.sError)
+	f.Intrinsic.Control.CallSub(Unload)
+f.Intrinsic.Control.EndTry	
+Program.Sub.RefreshGridView.End
+
+Program.Sub.Comments.Start
+${$5$}$3.0.0.0$}$1
+${$6$}$tdjohan$}$20220217180734156$}$8rAQhOSvlohpQhMDm1j544LwmwXnRbkhxWECzQw5mN3wJE5ownUSJEnDMqZDn/DQKSTPVcE+HNg=
+Program.Sub.Comments.End
