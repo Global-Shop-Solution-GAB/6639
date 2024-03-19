@@ -1,0 +1,895 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.F_PR..Create(BaseForm)
+Gui.F_PR..Caption("Purchase Requisition Dashboard [APAC]")
+Gui.F_PR..Size(14355,9690)
+Gui.F_PR..MinX(0)
+Gui.F_PR..MinY(0)
+Gui.F_PR..Position(0,0)
+Gui.F_PR..FontSize(9)
+Gui.F_PR..BackColor(-2147483633)
+Gui.F_PR..MousePointer(0)
+Gui.F_PR..Event(UnLoad,Unload)
+Gui.F_PR..AlwaysOnTop(False)
+Gui.F_PR..FontName("Tahoma")
+Gui.F_PR..ControlBox(True)
+Gui.F_PR..MaxButton(True)
+Gui.F_PR..MinButton(True)
+Gui.F_PR..Moveable(True)
+Gui.F_PR..Sizeable(True)
+Gui.F_PR..ShowInTaskBar(True)
+Gui.F_PR..TitleBar(True)
+Gui.F_PR.pic1.Create(PictureBox)
+Gui.F_PR.pic1.Size(6000,960)
+Gui.F_PR.pic1.Position(135,120)
+Gui.F_PR.pic1.Enabled(True)
+Gui.F_PR.pic1.Visible(True)
+Gui.F_PR.pic1.Zorder(0)
+Gui.F_PR.tab1.Create(Tab)
+Gui.F_PR.tab1.Size(13950,7740)
+Gui.F_PR.tab1.Position(105,1305)
+Gui.F_PR.tab1.FontSize(9)
+Gui.F_PR.tab1.Enabled(True)
+Gui.F_PR.tab1.Visible(True)
+Gui.F_PR.tab1.Zorder(0)
+Gui.F_PR.tab1.FontName("Tahoma")
+Gui.F_PR.tab1.Tabs(3)
+Gui.F_PR.tab1.SetTab(0)
+Gui.F_PR.tab1.Caption("Approval Status")
+Gui.F_PR.tab1.SetTab(1)
+Gui.F_PR.tab1.Caption("Requisition History with PO")
+Gui.F_PR.tab1.SetTab(2)
+Gui.F_PR.tab1.Caption("Requisition History without PO")
+Gui.F_PR.gsgcHistWithoutPO.Create(GsGridControl)
+Gui.F_PR.gsgcHistWithoutPO.Enabled(True)
+Gui.F_PR.gsgcHistWithoutPO.Visible(True)
+Gui.F_PR.gsgcHistWithoutPO.Zorder(0)
+Gui.F_PR.gsgcHistWithoutPO.Size(13920,7290)
+Gui.F_PR.gsgcHistWithoutPO.Position(0,0)
+Gui.F_PR.gsgcHistWithoutPO.Parent("tab1",2)
+Gui.F_PR.gsgcHistWithoutPO.Dock(5)
+Gui.F_PR.GsGCHist.Create(GsGridControl)
+Gui.F_PR.GsGCHist.Size(13680,7185)
+Gui.F_PR.GsGCHist.Position(75,75)
+Gui.F_PR.GsGCHist.Parent("tab1",1)
+Gui.F_PR.GsGCHist.Enabled(True)
+Gui.F_PR.GsGCHist.Visible(True)
+Gui.F_PR.GsGCHist.Zorder(0)
+Gui.F_PR.GsGCStatus.Create(GsGridControl)
+Gui.F_PR.GsGCStatus.Size(13680,7185)
+Gui.F_PR.GsGCStatus.Position(75,75)
+Gui.F_PR.GsGCStatus.Parent("tab1",0)
+Gui.F_PR.GsGCStatus.Enabled(True)
+Gui.F_PR.GsGCStatus.Visible(True)
+Gui.F_PR.GsGCStatus.Zorder(0)
+Gui.F_PR.GsGCStatus.Event(CellValueChanged,GsGCStatus_CellValueChanged)
+Gui.F_PR.GsGCStatus.Event(RowCellClick,GsGCStatus_RowCellClick)
+Gui.F_PR.lbl1.Create(Label,"Requisition History From",True,2220,255,0,9915,165,True,0,"Arial",9,-2147483633,0,0)
+Gui.F_PR.lbl1.BorderStyle(0)
+Gui.F_PR.dtpFrom.Create(DatePicker)
+Gui.F_PR.dtpFrom.Size(2025,285)
+Gui.F_PR.dtpFrom.Position(9945,390)
+Gui.F_PR.dtpFrom.Enabled(True)
+Gui.F_PR.dtpFrom.Visible(True)
+Gui.F_PR.dtpFrom.Zorder(0)
+Gui.F_PR.dtpFrom.CheckBox(False)
+Gui.F_PR.dtpFrom.FontName("Tahoma")
+Gui.F_PR.dtpFrom.FontSize(8.25)
+Gui.F_PR.cmdRefresh.Create(Button)
+Gui.F_PR.cmdRefresh.Size(1845,690)
+Gui.F_PR.cmdRefresh.Position(12165,60)
+Gui.F_PR.cmdRefresh.Caption("REFRESH")
+Gui.F_PR.cmdRefresh.FontSize(9)
+Gui.F_PR.cmdRefresh.Event(Click,cmdRefresh_Click)
+Gui.F_PR.cmdRefresh.Enabled(True)
+Gui.F_PR.cmdRefresh.Visible(True)
+Gui.F_PR.cmdRefresh.Zorder(0)
+Gui.F_PR.cmdRefresh.FontName("Tahoma")
+Gui.F_PR.lbl2.Create(Label,"*Note: Changing Buyer needs Admin privilege",True,3300,195,0,10020,1260,True,0,"Tahoma",8.25,,0,0)
+Gui.F_PR.lbl2.BorderStyle(0)
+Gui.F_PR.lbl2.FontStyle(False,True,False,False,False)
+Gui.F_PR.lbl2.Dock(0)
+Gui.F_PR.lbl2.Anchor(9)
+Gui.F_PR.lkupBuyer.Create(Lookup)
+Gui.F_PR.lkupBuyer.Enabled(True)
+Gui.F_PR.lkupBuyer.PopulateMode(4)
+Gui.F_PR.lkupBuyer.Title("Buyer Lookup")
+Gui.F_PR.lkupBuyer.StringBasis("")
+Gui.F_PR.lkupBuyer.FileBasis("")
+Gui.F_PR.lkupBuyer.ColumnDelim("")
+Gui.F_PR.lkupBuyer.RowDelim("")
+Gui.F_PR.lkupBuyer.PreferredStyle(0)
+Gui.F_PR.lkupBuyer.Event(SelectionMade,lkupBuyer_SelectionMade)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+V.Global.iSelectedRow.Declare(Long,0)
+V.Global.bAdminUser.Declare(Boolean,False)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+V.Local.dFrom.Declare(Date)
+V.Local.sGssLogo.Declare
+V.Local.sIcon.Declare
+v.Local.sQuery.Declare
+
+F.Intrinsic.String.Build("{0}\ART\gss2.ico",V.Caller.GlobalDir,v.Local.sIcon)
+F.Intrinsic.String.Build("{0}\ART\GAB_GSS_Logo_Green_Dash.png",V.Caller.GlobalDir,V.Local.sGssLogo)
+Gui.F_PR.pic1.Picture(V.Local.sGssLogo)
+Gui.F_PR..Icon(V.Local.sIcon)
+
+Gui.F_PR.GsGCHist.Anchor(15)
+Gui.F_PR.GsGCStatus.Anchor(15)
+Gui.F_PR.tab1.Anchor(15)
+Gui.F_PR.cmdRefresh.Anchor(9)
+Gui.F_PR.lbl1.Anchor(9)
+Gui.F_PR.dtpFrom.Anchor(9)
+Gui.F_PR.tab1.SetTab(0)
+
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass,600)
+
+F.Intrinsic.Date.DateAdd("M",-3,V.Ambient.Date,V.Local.dFrom)
+Gui.F_PR.dtpFrom.Value(V.Local.dFrom)
+
+'Check whether the user is an Admin for Purchase Requisition Dashboard
+F.Intrinsic.String.Build("select rtrim(GS_USER) as GS_USER, ADMIN from GAB_6639_ADMIN where rtrim(GS_USER) = '{0}';",v.Caller.User.Trim,v.Local.sQuery)
+F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",v.Local.sQuery)
+F.Intrinsic.Control.If(v.ODBC.conx!rst.EOF)
+	v.Global.bAdminUser.Set(False)
+F.Intrinsic.Control.Else
+	v.Global.bAdminUser.Set(True)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+'Create the datatable for Buyer Code
+F.Intrinsic.Control.If(V.DataTable.dtBuyer.Exists,=,False)
+	v.Local.sQuery.Set("select buyer_code as Buyer, buyer as Name from v_buyers;")
+	F.Data.DataTable.CreateFromSQL("dtBuyer","conx",v.Local.sQuery,True)
+	Gui.F_PR.lkupBuyer.DataTableBasis("dtBuyer")	
+	Gui.F_PR.lkupBuyer.Initialize
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub(setcontextmenus)
+
+'Prevent the form from using DarkTheme
+F.Intrinsic.Task.SetEnvironmentVariable("USEDARKTHEME",False)
+gui.F_PR..ApplyTheme()
+Gui.F_PR..Show
+
+F.Intrinsic.Control.CallSub(cmdrefresh_click)
+
+''Prevent the form from using DarkTheme
+'F.Intrinsic.Task.SetEnvironmentVariable("USEDARKTHEME",False)
+'gui.F_PR..ApplyTheme()
+
+'Gui.F_PR..Show
+Program.Sub.Main.End
+
+Program.Sub.Unload.Start
+F.Intrinsic.Control.If(V.DataTable.dtStatus.Exists,=,True)
+	F.Data.DataTable.Close("dtStatus")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtBuyer.Exists,=,True)
+	F.Data.DataTable.Close("dtBuyer")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtPOInfo.Exists,=,True)
+	F.Data.DataTable.Close("dtPOInfo")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistAll.Exists,=,True)
+	F.Data.DataTable.Close("dtHistAll")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistAllTemp.Exists,=,True)
+	F.Data.DataTable.Close("dtHistAllTemp")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistWithPODisctinct.Exists,=,True)
+	F.Data.DataTable.Close("dtHistWithPODisctinct")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHist.Exists,=,True)
+'	F.Data.DataView.Close("dtHist","dvHist")
+	F.Data.DataTable.Close("dtHist")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistWithoutPO.Exists,=,True)
+'	F.Data.DataView.Close("dtHistWithoutPO","dvHistWithoutPO")
+	F.Data.DataTable.Close("dtHistWithoutPO")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtReceiver.Exists,=,True)
+	F.Data.DataTable.Close("dtReceiver")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtReceiverMatching.Exists,=,True)
+	F.Data.DataTable.Close("dtReceiverMatching")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHist$dtReceiver.Exists,=,True)
+'	F.Data.DataView.Close("dtHist$dtReceiver","dvReceiver")
+	F.Data.DataTable.Close("dtHist$dtReceiver")
+F.Intrinsic.Control.EndIf
+
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+Program.Sub.Unload.End
+
+Program.Sub.cmdRefresh_Click.Start
+V.Local.dFrom.Declare
+V.Local.i1.Declare
+V.Local.iLine.Declare
+V.Local.sSQL.Declare
+
+Gui.F_PR.tab1.Visible(False)
+
+Gui.F_PR.pic1.InvokeWait("Loading... Please wait...","Purchase Requisition Dashboard (6639)")
+
+F.Intrinsic.Control.If(V.DataTable.dtStatus.Exists,=,True)
+	F.Data.DataTable.Close("dtStatus")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistAllTemp.Exists,=,True)
+	F.Data.DataTable.Close("dtHistAllTemp")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtPOInfo.Exists,=,True)
+	F.Data.DataTable.Close("dtPOInfo")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistAll.Exists,=,True)
+	F.Data.DataTable.Close("dtHistAll")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHist.Exists,=,True)
+	F.Data.DataTable.Close("dtHist")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistWithPODisctinct.Exists,=,True)
+	F.Data.DataTable.Close("dtHistWithPODisctinct")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtReceiver.Exists,=,True)
+	F.Data.DataTable.Close("dtReceiver")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtReceiverMatching.Exists,=,True)
+	F.Data.DataTable.Close("dtReceiverMatching")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHist$dtReceiverMatching.Exists,=,True)
+	F.Data.DataTable.Close("dtHist$dtReceiverMatching")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtHistWithoutPO.Exists,=,True)
+	F.Data.DataTable.Close("dtHistWithoutPO")
+F.Intrinsic.Control.EndIf
+
+'Requisition that has not been turned into PO from v_purchase_reqs
+'F.Data.DataTable.CreateFromSQL("dtStatus","conx","select po_req_number as Requisition, date_original as ReqDate, po_req_line as Line, userid_originator as Originator, user_approval as Approver, buyer as BuyerCode, '' as BuyerName, Part, Description, ' ' as AltDesc, '' as ExtraDesc, Quantity, UM, user_ref as Reference, Job, Suffix, date_due as DueDate, user_changed as Modified, date_changed as DateChanged from v_purchase_reqs order by po_req_number, po_req_line",True)
+F.Data.DataTable.CreateFromSQL("dtStatus","conx","select vpr.po_req_number as Requisition, vpr.date_original as ReqDate, vpr.po_req_line as Line, vpr.userid_originator as Originator, vpr.user_approval as Approver, vpr.buyer as BuyerCode, '' as BuyerCodeLU, '' as BuyerName, vpr.Part, vpr.Description, ' ' as AltDesc, RTRIM(CONVERT(REPLACE(REPLACE(REPLACE(viet.text,Char(10),' '),Char(13),' '),Char(9),' '),SQL_VARCHAR,1000)) as ExtraDesc, RTRIM(CONVERT(REPLACE(REPLACE(REPLACE(vrt.text,Char(10),' '),Char(13),' '),Char(9),' '),SQL_VARCHAR,1000)) as ReqLineText, vpr.Quantity, vpr.UM, vpr.user_ref as Reference, vpr.Job, vpr.Suffix, vpr.date_due as DueDate, vpr.user_changed as Modified, vpr.date_changed as DateChanged from v_purchase_reqs vpr left join v_inv_extra_text viet on vpr.part = viet.part left join v_reqsn_text vrt on vpr.po_req_number = vrt.number and vpr.po_req_line = vrt.line order by vpr.po_req_number, vpr.po_req_line",True)
+
+'Create Dictionary for Alt Description
+F.Data.Dictionary.CreateFromSQL("dicDesc","conx","select part, (rtrim(description_2)+' '+rtrim(description_3)) as description from v_inventory_mst2")
+F.Data.Dictionary.SetDefaultReturn("dicDesc","")
+F.Data.DataTable.FillFromDictionary("dtStatus","dicDesc","Part","AltDesc")
+
+'Requisition that has been turned into PO from v_req_hist
+V.Local.dFrom.Set(V.Screen.F_PR!dtpFrom.Value)
+'F.Intrinsic.String.Build("select req_num as Requisition, orig_date as ReqDate, req_line as Line, user_orig as Originator, user_approval as Approver, buyer as BuyerCode, '' as BuyerName, Part, descr as Description, ' ' as AltDesc, '' as ExtraDesc, inv_qty as Quantity, inv_UM as UM, user_ref as Reference from v_req_hist where orig_date >= '{0}' order by req_num, req_line",V.Local.dFrom.PervasiveDate,V.Local.sSQL)
+F.Intrinsic.String.Build("select vrh.req_num as Requisition, vrh.orig_date as ReqDate, vrh.req_line as Line, vrh.user_orig as Originator, vrh.user_approval as Approver, vrh.buyer as BuyerCode, '' as BuyerName, vrh.Part, vrh.descr as Description, ' ' as AltDesc, RTRIM(CONVERT(REPLACE(REPLACE(REPLACE(viet.text,Char(10),' '),Char(13),' '),Char(9),' '),SQL_VARCHAR,1000)) as ExtraDesc, RTRIM(CONVERT(REPLACE(REPLACE(REPLACE(vrt.text,Char(10),' '),Char(13),' '),Char(9),' '),SQL_VARCHAR,1000)) as ReqLineText, vrh.inv_qty as Quantity, vrh.inv_UM as UM, vrh.user_ref as Reference from v_req_hist vrh left join v_inv_extra_text viet on vrh.part = viet.part left join v_reqsn_text vrt on vrh.req_num = vrt.number and vrh.req_line = vrt.line where orig_date >= '{0}' order by vrh.req_num, vrh.req_line",V.Local.dFrom.PervasiveDate,V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtHistAllTemp","conx",V.Local.sSQL,True)
+F.Data.DataTable.FillFromDictionary("dtHistAllTemp","dicDesc","Part","AltDesc")
+F.Data.Dictionary.Close("dicDesc")
+'F.Data.DataTable.AddColumn("dtHistAll","PO","String","")
+'F.Data.DataTable.AddColumn("dtHistAll","POLine","String","")
+'F.Data.DataTable.AddColumn("dtHistAll","Vendor","String","")
+'F.Data.DataTable.AddColumn("dtHistAll","QtyOrder","Float",0)
+'F.Data.DataTable.AddColumn("dtHistAll","QtyReceived","Float",0)
+'F.Data.DataTable.AddColumn("dtHistAll","QtyRejected","Float",0)
+'F.Data.DataTable.AddColumn("dtHistAll","QtyInspected","Float",0)
+
+V.Local.sSQL.Set("select po.purchase_order as PO, left(po.record_no,3) as POLine, po.requisition_no as Requisition, RIGHT(CONCAT('000',CONVERT(po.requisition_line,SQL_INTEGER)), 3) as Line, ven.name_vendor as Vendor, po.qty_order as QtyOrder, po.qty_received as QtyReceived, po.qty_reject as QtyRejected, po.qty_recd_not_insp as QtyInspected from v_po_lines po left join v_vendor_master ven on po.vendor = ven.vendor where po.requisition_no <> '';")
+F.Data.Datatable.CreateFromSQL("dtPOInfo","conx",v.Local.sSQL,True)
+
+'Join dtHistAll and dtPOInfo
+F.Data.Linq.Join(v.Enum.LinqJoinType!LeftJoin,v.Enum.LinqSourceType!DataTable,"dtHistAllTemp*!*A",v.Enum.LinqSourceType!DataTable,"dtPOInfo*!*B","A.Requisition=B.Requisition and A.Line=B.Line","A.Requisition*!*A.ReqDate*!*A.Line*!*A.Originator*!*A.Approver*!*A.BuyerCode*!*A.BuyerName*!*A.Part*!*A.Description*!*A.AltDesc*!*A.ExtraDesc*!*A.ReqLineText*!*A.Quantity*!*A.UM*!*A.Reference*!*B.PO*!*B.POLine*!*B.Vendor*!*B.QtyOrder*!*B.QtyReceived*!*B.QtyRejected*!*B.QtyInspected","","","","dtHistAll",True)
+
+'Close DataTable
+F.Data.DataTable.Close("dtHistAllTemp")
+
+'Create dictionary for Buyer Name
+f.Data.Dictionary.CreateFromSQL("dicBuyerName","conx","Select buyer_code as BuyerCode, rtrim(buyer) as BuyerName from V_BUYERS")
+f.Data.Dictionary.SetDefaultReturn("dicBuyerName","")
+f.Data.DataTable.FillFromDictionary("dtStatus","dicBuyerName","BuyerCode","BuyerName")
+f.Data.DataTable.FillFromDictionary("dtHistAll","dicBuyerName","BuyerCode","BuyerName")
+f.Data.Dictionary.Close("dicBuyerName")
+
+'removed by TDjohan - 07/25/2022 
+'do not use looping because it take a long time to load when the data is huge
+''Update PO info to requisition that has been turned into PO
+'F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtHistAll.RowCount--,1)
+'	F.Intrinsic.Math.ConvertToLong(V.DataTable.dtHistAll(V.Local.i1).Line!FieldVal,V.Local.iLine)
+'	F.Intrinsic.String.Build("select po.purchase_order as PO, left(po.record_no,3) as POLine, ven.name_vendor as Vendor, po.qty_order as QtyOrder, po.qty_received as QtyReceived, po.qty_reject as QtyRejected, po.qty_recd_not_insp as QtyInspected from v_po_lines po left join v_vendor_master ven on po.vendor = ven.vendor where po.requisition_no = '{0}' and requisition_line = '{1}'",V.DataTable.dtHistAll(V.Local.i1).Requisition!FieldValTrim,V.Local.iLine,V.Local.sSQL)
+'	F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+'	F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+'		F.Data.DataTable.SetValue("dtHistAll",V.Local.i1,"PO",V.ODBC.conx!rst.FieldValTrim!PO,"POLine",V.ODBC.conx!rst.FieldValTrim!POLine,"Vendor",V.ODBC.conx!rst.FieldValTrim!Vendor,"QtyOrder",V.ODBC.conx!rst.FieldVal!QtyOrder,"QtyReceived",V.ODBC.conx!rst.FieldVal!QtyReceived,"QtyRejected",V.ODBC.conx!rst.FieldVal!QtyRejected,"QtyInspected",V.ODBC.conx!rst.FieldVal!QtyInspected)
+'		F.Intrinsic.String.Build("select receiver_no as Receiver, purchase_order as PO, po_line as POLine, date_received as RecDate, qty_received as Quantity, date_last_chg as ActionDate, last_chg_by as UserID from v_po_receiver where purchase_order = '{0}' and po_line = '{1}' order by date_received",V.ODBC.conx!rst.FieldValTrim!PO,V.ODBC.conx!rst.FieldValTrim!POLine,V.Local.sSQL)
+'		F.Intrinsic.Control.If(V.DataTable.dtReceiver.Exists,=,False)
+'			F.Data.DataTable.CreateFromSQL("dtReceiver","conx",V.Local.sSQL,True)
+'		F.Intrinsic.Control.Else
+'			F.Data.DataTable.CreateFromSQL("dtTemp","conx",V.Local.sSQL,True)
+'			F.Data.DataTable.Merge("dtTemp","dtReceiver",True,1)
+'			F.Data.DataTable.Close("dtTemp")
+'		F.Intrinsic.Control.EndIf
+'	F.Intrinsic.Control.EndIf
+'	F.ODBC.conx!rst.Close  
+'F.Intrinsic.Control.Next(V.Local.i1)
+
+'Create two separate datatables from dtHistAll (One with PO info & One without PO Info)
+'The one with PO Info
+F.Data.DataView.Create("dtHistAll","dvHistWithPO",22,"PO <> '' AND POLine <> ''","")
+F.Data.DataView.ToDataTable("dtHistAll","dvHistWithPO","dtHist",True)
+
+'Create dictionary from dtHist, which is the subset of dtHistAll with PO
+F.Data.DataTable.AddExpressionColumn("dtHist","PONo_POLine","String","[PO]+[POLine]")
+F.Data.DataTable.AddColumn("dtHist","Exists","Boolean",True)
+'Create temporary DataView
+F.Data.DataView.Create("dtHist","dvHistWithPODistinct")
+F.Data.DataView.ToDataTableDistinct("dtHist","dvHistWithPODistinct","dtHistWithPODisctinct","PONo_POLine*!*Exists",True)
+'Close DataView
+F.Data.DataView.Close("dtHist","dvHistWithPODistinct")
+'Create Dictionary
+F.Data.Dictionary.CreateFromDataTable("dicPOExists","dtHistWithPODisctinct","PONo_POLine","Exists")
+F.Data.Dictionary.SetDefaultReturn("dicPOExists",False)
+F.Data.DataTable.RemoveColumn("dtHist","PONo_POLine")
+F.Data.DataTable.RemoveColumn("dtHist","Exists")
+'Close DataTable
+F.Data.DataTable.Close("dtHistWithPODisctinct")
+
+'Create DataTable for PO Receiving History
+V.Local.sSQL.Set("select receiver_no as Receiver, purchase_order as PO, left(po_line,3) as POLine, date_received as RecDate, qty_received as Quantity, date_received as ActionDate, user_id as UserID from v_po_history where qty_received <> 0 and receiver_no <> ''")
+F.Data.DataTable.CreateFromSQL("dtReceiver","conx",V.Local.sSQL,True)
+'Remove PO Receiving Data that might not have corresponding Purchase Order in dtHist
+F.Data.DataTable.AddExpressionColumn("dtReceiver","PONo_POLine","String","[PO]+[POLine]")
+F.Data.DataTable.AddColumn("dtReceiver","Exists","Boolean",False)
+'Fill column from dictionary
+F.Data.DataTable.FillFromDictionary("dtReceiver","dicPOExists","PONo_POLine","Exists")
+'Close Data Dictionary
+F.Data.Dictionary.Close("dicPOExists")
+'Filter DataTable
+F.Data.DataView.Create("dtReceiver","dvReceiverMatching",22,"Exists = True","")
+F.Data.DataView.ToDataTable("dtReceiver","dvReceiverMatching","dtReceiverMatching",True)
+'Remove unnecessary columns
+F.Data.DataTable.RemoveColumn("dtReceiverMatching","PONo_POLine")
+F.Data.DataTable.RemoveColumn("dtReceiverMatching","Exists")
+'Close DataView & DataTable
+F.Data.DataView.Close("dtReceiver","dvReceiverMatching")
+F.Data.DataTable.Close("dtReceiver")
+
+F.Intrinsic.Control.If(V.DataTable.dtReceiverMatching.Exists,=,True)
+	F.Data.DataTable.Clone("dtReceiverMatching","dtHist$dtReceiverMatching",True)
+	F.Data.DataTable.Merge("dtReceiverMatching","dtHist$dtReceiverMatching",False,1)
+	F.Data.DataTable.AddRelation("dtHist","PO*!*POLine","dtHist$dtReceiverMatching","PO*!*POLine")
+	F.Data.DataView.Create("dtHist$dtReceiverMatching","dvReceiver")
+F.Intrinsic.Control.EndIf
+F.Data.DataView.Create("dtHist","dvHist")
+
+'The one without PO Info
+F.Data.DataView.Create("dtHistAll","dvHistWithoutPO",22,"(PO = '' AND POLine = '') OR (PO is NULL AND POLine is NULL)","")
+F.Data.DataView.ToDataTable("dtHistAll","dvHistWithoutPO","dtHistWithoutPO",True)
+F.Data.DataView.Create("dtHistWithoutPO","dvHistWithoutPO")
+
+F.Data.DataTable.Close("dtHistAll")
+
+Gui.F_PR.GsGCStatus.AddGridviewFromDatatable("gvStatus","dtStatus")
+Gui.F_PR.GsGCStatus.MainView("gvStatus")
+Gui.F_PR.GsGCHist.AddGridviewFromDataview("gvHist","dtHist","dvHist")
+F.Intrinsic.Control.If(V.DataTable.dtReceiverMatching.Exists,=,True)
+	Gui.F_PR.GsGCHist.AddGridviewFromDataview("gvReceiver","dtHist","dvReceiver")
+F.Intrinsic.Control.EndIf
+Gui.F_PR.GsGCHist.MainView("gvHist")
+Gui.F_PR.gsgcHistWithoutPO.AddGridviewFromDataview("gvHistWithoutPO","dtHistWithoutPO","dvHistWithoutPO")
+Gui.F_PR.gsgcHistWithoutPO.MainView("gvHistWithoutPO")
+
+F.Intrinsic.Control.CallSub(gridviewproperties)
+
+Gui.F_PR.pic1.HideWait()
+
+Gui.F_PR.tab1.Visible(True)
+Program.Sub.cmdRefresh_Click.End
+
+Program.Sub.GridviewProperties.Start
+V.Local.i1.Declare
+
+Gui.F_PR.GsGCStatus.SetGridviewProperty("gvStatus","ShowGroupPanel",True)
+Gui.F_PR.GsGCStatus.SetGridviewProperty("gvStatus","AllowSort",True)
+Gui.F_PR.GsGCStatus.SetGridviewProperty("gvStatus","AllowFilter",True)
+
+Gui.F_PR.GsGCHist.SetGridviewProperty("gvHist","ShowGroupPanel",True)
+Gui.F_PR.GsGCHist.SetGridviewProperty("gvHist","AllowSort",True)
+Gui.F_PR.GsGCHist.SetGridviewProperty("gvHist","AllowFilter",True)
+
+Gui.F_PR.gsgcHistWithoutPO.SetGridviewProperty("gvHistWithoutPO","ShowGroupPanel",True)
+Gui.F_PR.gsgcHistWithoutPO.SetGridviewProperty("gvHistWithoutPO","AllowSort",True)
+Gui.F_PR.gsgcHistWithoutPO.SetGridviewProperty("gvHistWithoutPO","AllowFilter",True)
+
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Requisition","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqDate","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Line","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Originator","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Approver","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerName","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Part","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Description","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","AltDesc","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ExtraDesc","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqLineText","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Quantity","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","UM","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Reference","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Job","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Suffix","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DueDate","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Modified","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DateChanged","HeaderHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Requisition","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqDate","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Line","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Originator","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Approver","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerName","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","UM","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Job","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Suffix","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DueDate","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Modified","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DateChanged","CellHAlignment","Center")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","Caption","Buyer Code")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","Caption","Buyer Code Search")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerName","Caption","Buyer Name")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqDate","Caption","Req. Date")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Line","Caption","Req. Line")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","AltDesc","Caption","Alt. Description")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ExtraDesc","Caption","Extra Description")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqLineText","Caption","Req Line Text")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DueDate","Caption","Due Date")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Modified","Caption","Modified By")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DateChanged","Caption","Modified Date")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Requisition","MinWidth","80")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqDate","MinWidth","90")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Line","MinWidth","60")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Originator","MinWidth","70")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Approver","MinWidth","70")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","MinWidth","70")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","MinWidth","30")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerName","MinWidth","150")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Part","MinWidth","120")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Description","MinWidth","210")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","AltDesc","MinWidth","210")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ExtraDesc","MinWidth","300")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqLineText","MinWidth","300")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Quantity","MinWidth","110")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","UM","MinWidth","40")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Reference","MinWidth","120")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Job","MinWidth","60")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Suffix","MinWidth","50")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DueDate","MinWidth","90")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Modified","MinWidth","80")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DateChanged","MinWidth","90")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Requisition","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqDate","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Line","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Originator","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Approver","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerName","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Part","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Description","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","AltDesc","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ExtraDesc","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqLineText","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Quantity","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","UM","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Reference","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Job","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Suffix","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DueDate","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Modified","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DateChanged","HeaderFontBold",True)
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Requisition","Fixed","Left")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqDate","Fixed","Left")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Line","Fixed","Left")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","ReqDate","DisplayCustomDatetime","d")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DueDate","DisplayCustomDatetime","d")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","DateChanged","DisplayCustomDatetime","d")
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","Quantity","DisplayCustomNumeric","##,###,##0.00000")
+
+f.Intrinsic.Control.If(v.Global.bAdminUser)
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","AllowEdit","True")
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","ReadOnly","False")
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","CellBackColor","LightYellow")
+	
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","AllowEdit","False")
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","ReadOnly","True")
+f.Intrinsic.Control.Else
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","AllowEdit","False")
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCode","ReadOnly","True")
+	
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","AllowEdit","True")
+	Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","ReadOnly","False")
+f.Intrinsic.Control.EndIf
+Gui.F_PR.GsGCStatus.SetColumnProperty("gvStatus","BuyerCodeLU","Icon","Browse")
+
+'F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtStatus.RowCount--,2)
+'	Gui.F_PR.GsGCStatus.SetRowAppearance("gvStatus",V.Local.i1,"BackColor","aliceblue")
+'F.Intrinsic.Control.Next(V.Local.i1)
+
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Requisition","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqDate","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Line","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Originator","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Approver","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerCode","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerName","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Part","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Description","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","AltDesc","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ExtraDesc","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqLineText","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Quantity","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","UM","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Reference","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","PO","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","POLine","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Vendor","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyOrder","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyReceived","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyRejected","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyInspected","HeaderHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Requisition","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqDate","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Line","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Originator","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Approver","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerCode","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerName","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","UM","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","PO","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","POLine","CellHAlignment","Center")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerCode","Caption","Buyer Code")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerName","Caption","Buyer Name")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Requisition","Caption","Requisition")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqDate","Caption","Req. Date")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Line","Caption","Req. Line")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","AltDesc","Caption","Alt Desc")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ExtraDesc","Caption","Extra Desc")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqLineText","Caption","Req Line Text")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","POLine","Caption","PO Line")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyOrder","Caption","Order Qty")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyReceived","Caption","Received Qty")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyRejected","Caption","Reject Qty")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyInspected","Caption","Inspected Qty")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Requisition","MinWidth","80")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqDate","MinWidth","90")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Line","MinWidth","60")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Originator","MinWidth","70")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Approver","MinWidth","70")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerCode","MinWidth","70")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerName","MinWidth","150")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Part","MinWidth","120")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Description","MinWidth","210")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","AltDesc","MinWidth","210")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ExtraDesc","MinWidth","300")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqLineText","MinWidth","300")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Quantity","MinWidth","110")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","UM","MinWidth","40")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Reference","MinWidth","120")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","PO","MinWidth","80")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","POLine","MinWidth","60")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Vendor","MinWidth","140")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyOrder","MinWidth","90")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyReceived","MinWidth","90")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyRejected","MinWidth","90")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyInspected","MinWidth","90")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Requisition","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqDate","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Line","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Originator","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Approver","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerCode","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","BuyerName","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Part","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Description","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","AltDesc","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ExtraDesc","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqLineText","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Quantity","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","UM","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Reference","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","PO","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","POLine","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Vendor","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyOrder","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyReceived","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyRejected","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyInspected","HeaderFontBold",True)
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Requisition","Fixed","Left")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqDate","Fixed","Left")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Line","Fixed","Left")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","ReqDate","DisplayCustomDatetime","d")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","Quantity","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyOrder","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyReceived","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyRejected","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.GsGCHist.SetColumnProperty("gvHist","QtyInspected","DisplayCustomNumeric","##,###,##0.00000")
+
+'F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtHist.RowCount--,2)
+'	Gui.F_PR.GsGCHist.SetRowAppearance("gvHist",V.Local.i1,"BackColor","aliceblue")
+'F.Intrinsic.Control.Next(V.Local.i1)
+
+F.Intrinsic.Control.If(V.DataTable.dtReceiverMatching.Exists,=,True)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","PO","Visible",False)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","POLine","Visible",False)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Receiver","HeaderHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","RecDate","HeaderHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Quantity","HeaderHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","ActionDate","HeaderHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","UserID","HeaderHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Receiver","CellHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","RecDate","CellHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","ActionDate","CellHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","UserID","CellHAlignment","Center")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Receiver","Caption","Received No.")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","RecDate","Caption","Received Date")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","ActionDate","Caption","Action Date")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Receiver","MinWidth","80")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","RecDate","MinWidth","90")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Quantity","MinWidth","100")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","ActionDate","MinWidth","90")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","UserID","MinWidth","80")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Receiver","HeaderFontBold",True)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","RecDate","HeaderFontBold",True)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Quantity","HeaderFontBold",True)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","ActionDate","HeaderFontBold",True)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","UserID","HeaderFontBold",True)
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","RecDate","DisplayCustomDatetime","d")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","ActionDate","DisplayCustomDatetime","d")
+	Gui.F_PR.GsGCHist.SetColumnProperty("gvReceiver","Quantity","DisplayCustomNumeric","##,###,##0.00000")
+F.Intrinsic.Control.EndIf
+
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Requisition","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqDate","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Line","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Originator","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Approver","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerCode","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerName","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Part","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Description","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","AltDesc","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ExtraDesc","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqLineText","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Quantity","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","UM","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Reference","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","PO","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","POLine","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Vendor","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyOrder","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyReceived","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyRejected","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyInspected","HeaderHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Requisition","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqDate","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Line","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Originator","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Approver","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerCode","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerName","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","UM","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","PO","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","POLine","CellHAlignment","Center")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerCode","Caption","Buyer Code")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerName","Caption","Buyer Name")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Requisition","Caption","Requisition")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqDate","Caption","Req. Date")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Line","Caption","Req. Line")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","AltDesc","Caption","Alt Desc")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ExtraDesc","Caption","Extra Desc")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqLineText","Caption","Req Line Text")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","POLine","Caption","PO Line")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyOrder","Caption","Order Qty")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyReceived","Caption","Received Qty")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyRejected","Caption","Reject Qty")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyInspected","Caption","Inspected Qty")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Requisition","MinWidth","80")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqDate","MinWidth","90")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Line","MinWidth","60")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Originator","MinWidth","70")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Approver","MinWidth","70")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerCode","MinWidth","70")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerName","MinWidth","150")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Part","MinWidth","120")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Description","MinWidth","210")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","AltDesc","MinWidth","210")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ExtraDesc","MinWidth","300")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqLineText","MinWidth","300")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Quantity","MinWidth","110")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","UM","MinWidth","40")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Reference","MinWidth","120")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","PO","MinWidth","80")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","POLine","MinWidth","60")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Vendor","MinWidth","140")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyOrder","MinWidth","90")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyReceived","MinWidth","90")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyRejected","MinWidth","90")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyInspected","MinWidth","90")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Requisition","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqDate","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Line","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Originator","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Approver","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerCode","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","BuyerName","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Part","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Description","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","AltDesc","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ExtraDesc","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqLineText","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Quantity","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","UM","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Reference","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","PO","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","POLine","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Vendor","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyOrder","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyReceived","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyRejected","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyInspected","HeaderFontBold",True)
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Requisition","Fixed","Left")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqDate","Fixed","Left")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Line","Fixed","Left")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","ReqDate","DisplayCustomDatetime","d")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","Quantity","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyOrder","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyReceived","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyRejected","DisplayCustomNumeric","##,###,##0.00000")
+Gui.F_PR.gsgcHistWithoutPO.SetColumnProperty("gvHistWithoutPO","QtyInspected","DisplayCustomNumeric","##,###,##0.00000")
+Program.Sub.GridviewProperties.End
+
+Program.Sub.SetContextMenus.Start
+Gui.F_PR..ContextMenuCreate("ctxStatus")
+Gui.F_PR.GsGCStatus.ContextMenuAttach("ctxStatus")
+Gui.F_PR..ContextMenuAddItem("ctxStatus","Export",0,"Export Grid")
+Gui.F_PR..ContextMenuSetItemEventHandler("ctxStatus","Export","ContextClick")
+
+Gui.F_PR..ContextMenuCreate("ctxHist")
+Gui.F_PR.GsGCHist.ContextMenuAttach("ctxHist")
+Gui.F_PR..ContextMenuAddItem("ctxHist","Export",0,"Export Grid")
+Gui.F_PR..ContextMenuSetItemEventHandler("ctxHist","Export","ContextClick")
+
+Gui.F_PR..ContextMenuCreate("ctxHistWithoutPO")
+Gui.F_PR.gsgcHistWithoutPO.ContextMenuAttach("ctxHistWithoutPO")
+Gui.F_PR..ContextMenuAddItem("ctxHistWithoutPO","Export",0,"Export Grid")
+Gui.F_PR..ContextMenuSetItemEventHandler("ctxHistWithoutPO","Export","ContextClick")
+Program.Sub.SetContextMenus.End
+
+Program.Sub.ContextClick.Start
+V.Local.bExist.Declare
+V.Local.sControl.Declare
+V.Local.sFilename.Declare
+V.Local.sRet.Declare
+
+F.Intrinsic.Control.SelectCase(V.Args.MenuName)
+	F.Intrinsic.Control.Case("CTXSTATUS")
+		V.Local.sControl.Set("GsGCStatus")
+	F.Intrinsic.Control.Case("CTXHIST")
+		V.Local.sControl.Set("GsGCHist")
+	F.Intrinsic.Control.Case("CTXHISTWITHOUTPO")
+		V.Local.sControl.Set("gsgcHistWithoutPO")
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.UI.ShowSaveFileDialog("","*.xlsx|",V.Local.sFilename)
+F.Intrinsic.Control.If(V.Local.sFileName,<>,"***CANCEL***")
+	F.Automation.MSExcel.CheckPresence(V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist)
+		F.Intrinsic.String.Concat(V.Local.sFilename,".xlsx",V.Local.sFilename)
+		Gui.F_PR.[V.Local.sControl].Export(V.Local.sFilename,"xlsx")
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFilename,"","",1)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Concat(V.Local.sFilename,".csv",V.Local.sFilename)
+		Gui.F_PR.[V.Local.sControl].Export(V.Local.sFilename,"csv")
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFilename,"","",1)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+Program.Sub.ContextClick.End
+
+Program.Sub.GsGCStatus_CellValueChanged.Start
+v.Local.sQuery.Declare
+
+F.Intrinsic.Control.SelectCase(V.Args.Column.UCase)
+	F.Intrinsic.Control.Case("BUYERCODE")
+		F.Intrinsic.Control.If(V.DataTable.dtStatus(V.Args.RowIndex).BuyerCode!FieldValTrim,<>,"")
+			'Convert the value to Upper Case
+			F.Data.DataTable.SetValue("dtStatus",V.Args.RowIndex,V.Args.Column,V.Args.Value.UCase)
+			F.Data.DataTable.AcceptChanges("dtStatus")
+			
+			F.Intrinsic.String.Build("select buyer_code as Buyer, buyer as Name from v_buyers where buyer_code = '{0}';",v.DataTable.dtStatus(v.Args.RowIndex).BuyerCode!FieldValTrim,v.Local.sQuery)
+			F.Data.DataTable.CreateFromSQL("dtBuyerCodeTemp","conx",v.Local.sQuery,False)
+			F.Intrinsic.Control.If(v.DataTable.dtBuyerCodeTemp.RowCount,=,0)
+				F.Intrinsic.UI.Msgbox("Buyer Code is invalid")
+				F.Data.DataTable.Close("dtBuyerCodeTemp")
+				F.Data.DataTable.SetValue("dtStatus",v.Args.RowIndex,"BuyerName","")
+				F.Data.DataTable.AcceptChanges("dtStatus")
+				F.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf
+			'update the datatable
+			F.Data.DataTable.SetValue("dtStatus",v.Args.RowIndex,"BuyerCode",v.DataTable.dtBuyerCodeTemp(0).Buyer!FieldValTrim,"BuyerName",v.DataTable.dtBuyerCodeTemp(0).Name!FieldValTrim)
+			F.Data.DataTable.AcceptChanges("dtStatus")
+			'update to purchase_reqs
+			f.Intrinsic.String.Build("update purchase_reqs set buyer = '{0}' where po_req_number = '{1}' and po_req_line = '{2}';",v.DataTable.dtStatus(v.Args.RowIndex).BuyerCode!FieldValTrim,v.DataTable.dtStatus(v.Args.RowIndex).Requisition!FieldValTrim,v.DataTable.dtStatus(v.Args.RowIndex).Line!FieldValTrim,v.Local.sQuery)
+			f.ODBC.Connection!conx.Execute(v.Local.sQuery)
+		F.Intrinsic.Control.Else
+			'update the datatable
+			F.Data.DataTable.SetValue("dtStatus",v.Args.RowIndex,"BuyerCode","","BuyerName","")
+			F.Data.DataTable.AcceptChanges("dtStatus")
+			'update to purchase_reqs
+			f.Intrinsic.String.Build("update purchase_reqs set buyer = '{0}' where po_req_number = '{1}' and po_req_line = '{2}';",v.DataTable.dtStatus(v.Args.RowIndex).BuyerCode!FieldValTrim,v.DataTable.dtStatus(v.Args.RowIndex).Requisition!FieldValTrim,v.DataTable.dtStatus(v.Args.RowIndex).Line!FieldValTrim,v.Local.sQuery)
+			f.ODBC.Connection!conx.Execute(v.Local.sQuery)
+		F.Intrinsic.Control.EndIf
+		
+F.Intrinsic.Control.EndSelect
+
+Program.Sub.GsGCStatus_CellValueChanged.End
+
+Program.Sub.GsGCStatus_RowCellClick.Start
+v.Local.sQuery.Declare
+
+F.Intrinsic.Control.BlockEvents
+
+F.Intrinsic.Control.SelectCase(V.Args.Column.UCase)
+	F.Intrinsic.Control.CaseAny("BUYERCODELU")		
+		F.Intrinsic.Control.If(V.DataTable.dtBuyer.Exists,=,False)
+			v.Local.sQuery.Set("select buyer_code as Buyer, buyer as Name from v_buyers;")
+			F.Data.DataTable.CreateFromSQL("dtBuyer","conx",v.Local.sQuery,True)
+			Gui.F_PR.lkupBuyer.DataTableBasis("dtBuyer")	
+		F.Intrinsic.Control.EndIf
+		V.Global.iSelectedRow.Set(V.Args.RowIndex)
+		Gui.F_PR.lkupBuyer.Show
+		
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.UnBlockEvents
+Program.Sub.GsGCStatus_RowCellClick.End
+
+Program.Sub.lkupBuyer_SelectionMade.Start
+v.Local.sQuery.Declare
+
+Gui.F_PR.lkupBuyer.Enabled(False)
+
+'Update datatable
+F.Data.DataTable.SetValue("dtStatus",V.Global.iSelectedRow,"BuyerCode",v.DataTable.lkupBuyer_Result(0).Buyer!FieldValTrim,"BuyerName",v.DataTable.lkupBuyer_Result(0).Name!FieldValTrim)
+F.Data.DataTable.AcceptChanges("dtStatus")
+
+'update to purchase_reqs
+f.Intrinsic.String.Build("update purchase_reqs set buyer = '{0}' where po_req_number = '{1}' and po_req_line = '{2}';",v.DataTable.dtStatus(V.Global.iSelectedRow).BuyerCode!FieldValTrim,v.DataTable.dtStatus(V.Global.iSelectedRow).Requisition!FieldValTrim,v.DataTable.dtStatus(V.Global.iSelectedRow).Line!FieldValTrim,v.Local.sQuery)
+f.ODBC.Connection!conx.Execute(v.Local.sQuery)
+
+V.Global.iSelectedRow.Set(0)
+
+Gui.F_PR.lkupBuyer.Enabled(True)
+Program.Sub.lkupBuyer_SelectionMade.End
+
+Program.Sub.Comments.Start
+${$0$}$Purchase Requisition Dashboard$}$MHERTANTO$}$10/1/2018 11:16:21 AM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$This dashboard shows purchase requisition approval status and purchase requisition that has been converted into PO.
+${$5$}$2.0.0.0$}$2
+${$6$}$tdjohan$}$20220727134535733$}$8rAQhOSvlohpQhMDm1j544LwmwXnRbkh+nSvNHGCJb8zDReZsKRXi7exqIXqXJ3SUqNDx7Ondhk=
+Program.Sub.Comments.End
